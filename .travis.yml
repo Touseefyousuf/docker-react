@@ -5,3 +5,15 @@ before_install:
  - docker build -t touseefspeaks/docker-react -f Dockerfil.dev .
 script:
  - docker run touseefspeaks/docker-react npm run test -- --coverage
+deploy:
+  provider:elasticbeanstalk
+  region:"us-east-1"
+  app:"docker-react"
+  env:"Docker-env"
+  bucket-name:"elasticbeanstalk-us-east-1-296022208876"
+  bucket-path:"docker-react"
+  on:
+   branch:master
+  access_key_is:$AWS_ACCESS_KEY
+  secret_access_key:
+    secure:"$AWS_SECRET_KEY"  
